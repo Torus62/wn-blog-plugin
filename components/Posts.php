@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Components;
+<?php namespace Torus\Blog\Components;
 
 use Lang;
 use Redirect;
@@ -7,9 +7,9 @@ use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Winter\Storm\Database\Model;
 use Winter\Storm\Database\Collection;
-use Winter\Blog\Models\Post as BlogPost;
-use Winter\Blog\Models\Category as BlogCategory;
-use Winter\Blog\Models\Settings as BlogSettings;
+use Torus\Blog\Models\Post as BlogPost;
+use Torus\Blog\Models\Category as BlogCategory;
+use Torus\Blog\Models\Settings as BlogSettings;
 
 class Posts extends ComponentBase
 {
@@ -82,6 +82,18 @@ class Posts extends ComponentBase
             'categoryFilter' => [
                 'title'       => 'winter.blog::lang.settings.posts_filter',
                 'description' => 'winter.blog::lang.settings.posts_filter_description',
+                'type'        => 'string',
+                'default'     => '',
+            ],
+            'brandFilter' => [
+                'title'       => 'Brand filter',
+                'description' => 'Enter a brand to filter by brand or leave blank to fetch all',
+                'type'        => 'string',
+                'default'     => '',
+            ],
+            'regionsFilter' => [
+                'title'       => 'Regions filter',
+                'description' => 'Enter a regions list to filter by region or leave blank to fetch all',
                 'type'        => 'string',
                 'default'     => '',
             ],
@@ -196,6 +208,7 @@ class Posts extends ComponentBase
     {
         $category = $this->category ? $this->category->id : null;
         $categorySlug = $this->category ? $this->category->slug : null;
+        $regions = $this->property('regionsFilter') ? explode(',', $this->property('regionsFilter')) : null;
 
         /*
          * List all the posts, eager load their categories
@@ -208,6 +221,8 @@ class Posts extends ComponentBase
             'perPage'          => $this->property('postsPerPage'),
             'search'           => trim(input('search')),
             'category'         => $category,
+            'brand'            => $this->property('brandFilter'),
+            'regions'          => $regions,
             'published'        => $isPublished,
             'exceptPost'       => is_array($this->property('exceptPost'))
                 ? $this->property('exceptPost')

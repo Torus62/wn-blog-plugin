@@ -68,3 +68,11 @@
     - v2.0.1/rename_indexes.php
     - v2.0.1/fix_translate_records.php
 "2.0.2": Fixes issue where images could not be uploaded directly to the Markdown editor.
+"2.0.5":
+    - Rebrand to Torus.Blog
+    - v2.0.5/rename_winter_tables.php
+    - v2.0.5/rename_winter_indexes.php
+"2.0.6":
+    - Add extended brand and region fields
+    - v2.0.6/posts_add_regions_brand.php
+

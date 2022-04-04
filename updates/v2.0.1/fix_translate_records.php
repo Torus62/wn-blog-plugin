@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Updates;
+<?php namespace Torus\Blog\Updates;
 
 use Db;
 use Schema;

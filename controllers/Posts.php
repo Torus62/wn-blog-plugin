@@ -1,10 +1,10 @@
-<?php namespace Winter\Blog\Controllers;
+<?php namespace Torus\Blog\Controllers;
 
 use BackendMenu;
 use Flash;
 use Lang;
 use Backend\Classes\Controller;
-use Winter\Blog\Models\Post;
+use Torus\Blog\Models\Post;
 
 class Posts extends Controller
 {
@@ -24,7 +24,7 @@ class Posts extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Winter.Blog', 'blog', 'posts');
+        BackendMenu::setContext('Torus.Blog', 'blog', 'posts');
     }
 
     public function index()
@@ -41,8 +41,8 @@ class Posts extends Controller
         BackendMenu::setContextSideMenu('new_post');
 
         $this->bodyClass = 'compact-container';
-        $this->addCss('/plugins/winter/blog/assets/css/winter.blog-preview.css');
-        $this->addJs('/plugins/winter/blog/assets/js/post-form.js');
+        $this->addCss('/plugins/torus/blog/assets/css/winter.blog-preview.css');
+        $this->addJs('/plugins/torus/blog/assets/js/post-form.js');
 
         return $this->asExtension('FormController')->create();
     }
@@ -50,15 +50,15 @@ class Posts extends Controller
     public function update($recordId = null)
     {
         $this->bodyClass = 'compact-container';
-        $this->addCss('/plugins/winter/blog/assets/css/winter.blog-preview.css');
-        $this->addJs('/plugins/winter/blog/assets/js/post-form.js');
+        $this->addCss('/plugins/torus/blog/assets/css/winter.blog-preview.css');
+        $this->addJs('/plugins/torus/blog/assets/js/post-form.js');
 
         return $this->asExtension('FormController')->update($recordId);
     }
 
     public function export()
     {
-        $this->addCss('/plugins/winter/blog/assets/css/winter.blog-export.css');
+        $this->addCss('/plugins/torus/blog/assets/css/winter.blog-export.css');
 
         return $this->asExtension('ImportExportController')->export();
     }
@@ -84,7 +84,7 @@ class Posts extends Controller
         }
 
         if ($model instanceof Post && $model->isClassExtendedWith('Winter.Translate.Behaviors.TranslatableModel')) {
-            $widget->secondaryTabs['fields']['content']['type'] = 'Winter\Blog\FormWidgets\MLBlogMarkdown';
+            $widget->secondaryTabs['fields']['content']['type'] = 'Torus\Blog\FormWidgets\MLBlogMarkdown';
         }
     }
 

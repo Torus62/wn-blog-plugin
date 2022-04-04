@@ -9,7 +9,7 @@ title: winter.blog::lang.category.reorder
 nameFrom: name
 
 # Model Class name
-modelClass: Winter\Blog\Models\Category
+modelClass: Torus\Blog\Models\Category
 
 # Toolbar widget configuration
 toolbar:

@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Models;
+<?php namespace Torus\Blog\Models;
 
 use Backend\Models\ExportModel;
 use ApplicationException;
@@ -8,7 +8,7 @@ use ApplicationException;
  */
 class PostExport extends ExportModel
 {
-    public $table = 'winter_blog_posts';
+    public $table = 'torus_blog_posts';
 
     /**
      * @var array Relations
@@ -22,8 +22,8 @@ class PostExport extends ExportModel
 
     public $belongsToMany = [
         'post_categories' => [
-            'Winter\Blog\Models\Category',
-            'table'    => 'winter_blog_posts_categories',
+            'Torus\Blog\Models\Category',
+            'table'    => 'torus_blog_posts_categories',
             'key'      => 'post_id',
             'otherKey' => 'category_id'
         ]

@@ -1,8 +1,8 @@
-<?php namespace Winter\Blog\Updates;
+<?php namespace Torus\Blog\Updates;
 
 use Carbon\Carbon;
-use Winter\Blog\Models\Post;
-use Winter\Blog\Models\Category;
+use Torus\Blog\Models\Post;
+use Torus\Blog\Models\Category;
 use Winter\Storm\Database\Updates\Seeder;
 
 class SeedAllTables extends Seeder

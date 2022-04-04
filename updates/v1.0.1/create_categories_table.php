@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Updates;
+<?php namespace Torus\Blog\Updates;
 
 use Schema;
 use Winter\Storm\Database\Updates\Migration;

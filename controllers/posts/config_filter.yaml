@@ -10,7 +10,7 @@ scopes:
         label: winter.blog::lang.posts.filter_category
 
         # Model Class name
-        modelClass: Winter\Blog\Models\Category
+        modelClass: Torus\Blog\Models\Category
 
         # Model attribute to display for the name
         nameFrom: name

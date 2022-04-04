@@ -1,11 +1,11 @@
-<?php namespace Winter\Blog\Components;
+<?php namespace Torus\Blog\Components;
 
 use Lang;
 use Response;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-use Winter\Blog\Models\Post as BlogPost;
-use Winter\Blog\Models\Category as BlogCategory;
+use Torus\Blog\Models\Post as BlogPost;
+use Torus\Blog\Models\Category as BlogCategory;
 
 class RssFeed extends ComponentBase
 {

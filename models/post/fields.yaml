@@ -27,7 +27,7 @@ secondaryTabs:
     fields:
         content:
             tab: winter.blog::lang.post.tab_edit
-            type: Winter\Blog\FormWidgets\BlogMarkdown
+            type: Torus\Blog\FormWidgets\BlogMarkdown
             cssClass: field-slim blog-post-preview
             stretch: true
             mode: split
@@ -37,6 +37,28 @@ secondaryTabs:
             type: relation
             commentAbove: winter.blog::lang.post.categories_comment
             placeholder: winter.blog::lang.post.categories_placeholder
+
+        brand:
+            label: Brand
+            tab: winter.blog::lang.post.tab_categories
+            type: dropdown
+            options:
+                group: 'Torus Group'
+                landlord: 'Torus Landlord'
+                hms: 'HMS'
+                homes: 'Torus Homes'
+                foundation: 'Torus Foundation'
+                developments: 'Torus Development'
+
+        regions:
+            tab: winter.blog::lang.post.tab_categories
+            label: Regions
+            type: checkboxlist
+            quickselect: true
+            options:
+                sthelens: 'St Helens'
+                liverpool: 'Liverpool'
+                warrington: 'Warrington'
 
         published:
             tab: winter.blog::lang.post.tab_manage

@@ -8,12 +8,6 @@ columns:
         label: winter.blog::lang.post.title
         searchable: true
 
-    # author:
-    #   label: Author
-    #   relation: user
-    #   select: login
-    #   searchable: true
-
     categories:
         label: winter.blog::lang.post.categories
         relation: categories

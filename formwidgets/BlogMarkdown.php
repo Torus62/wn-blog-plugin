@@ -1,10 +1,10 @@
-<?php namespace Winter\Blog\FormWidgets;
+<?php namespace Torus\Blog\FormWidgets;
 
 use Lang;
 use Input;
 use Response;
 use Validator;
-use Winter\Blog\Models\Post as PostModel;
+use Torus\Blog\Models\Post as PostModel;
 use Backend\Classes\FormWidgetBase;
 use Backend\FormWidgets\MarkdownEditor;
 use System\Models\File;

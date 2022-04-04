@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Models;
+<?php namespace Torus\Blog\Models;
 
 use Backend\Models\ImportModel;
 use Backend\Models\User as AuthorModel;
@@ -10,7 +10,7 @@ use Exception;
  */
 class PostImport extends ImportModel
 {
-    public $table = 'winter_blog_posts';
+    public $table = 'torus_blog_posts';
 
     /**
      * Validation rules

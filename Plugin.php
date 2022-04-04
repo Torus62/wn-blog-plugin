@@ -1,11 +1,11 @@
-<?php namespace Winter\Blog;
+<?php namespace Torus\Blog;
 
 use Backend;
 use Controller;
-use Winter\Blog\Models\Post;
+use Torus\Blog\Models\Post;
 use System\Classes\PluginBase;
-use Winter\Blog\Classes\TagProcessor;
-use Winter\Blog\Models\Category;
+use Torus\Blog\Classes\TagProcessor;
+use Torus\Blog\Models\Category;
 use Event;
 
 class Plugin extends PluginBase
@@ -18,17 +18,17 @@ class Plugin extends PluginBase
             'author'      => 'Torus',
             'icon'        => 'icon-pencil',
             'homepage'    => 'https://github.com/Torus62/wn-blog-plugin',
-            'replaces'    => ['RainLab.Blog' => '<= 1.5.0', 'Winter.Blog' => '>= 1.5.0 <= 2.0.2'],
+            'replaces'    => ['Winter.Blog' => '>= 1.5.0 <= 2.0.2'],
         ];
     }
 
     public function registerComponents()
     {
         return [
-            'Winter\Blog\Components\Post'       => 'blogPost',
-            'Winter\Blog\Components\Posts'      => 'blogPosts',
-            'Winter\Blog\Components\Categories' => 'blogCategories',
-            'Winter\Blog\Components\RssFeed'    => 'blogRssFeed'
+            'Torus\Blog\Components\Post'       => 'blogPost',
+            'Torus\Blog\Components\Posts'      => 'blogPosts',
+            'Torus\Blog\Components\Categories' => 'blogCategories',
+            'Torus\Blog\Components\RssFeed'    => 'blogRssFeed'
         ];
     }
 
@@ -67,9 +67,9 @@ class Plugin extends PluginBase
         return [
             'blog' => [
                 'label'       => 'winter.blog::lang.blog.menu_label',
-                'url'         => Backend::url('winter/blog/posts'),
+                'url'         => Backend::url('torus/blog/posts'),
                 'icon'        => 'icon-pencil',
-                'iconSvg'     => 'plugins/winter/blog/assets/images/blog-icon.svg',
+                'iconSvg'     => 'plugins/torus/blog/assets/images/blog-icon.svg',
                 'permissions' => ['winter.blog.*'],
                 'order'       => 300,
 
@@ -77,19 +77,19 @@ class Plugin extends PluginBase
                     'new_post' => [
                         'label'       => 'winter.blog::lang.posts.new_post',
                         'icon'        => 'icon-plus',
-                        'url'         => Backend::url('winter/blog/posts/create'),
+                        'url'         => Backend::url('torus/blog/posts/create'),
                         'permissions' => ['winter.blog.access_posts']
                     ],
                     'posts' => [
                         'label'       => 'winter.blog::lang.blog.posts',
                         'icon'        => 'icon-copy',
-                        'url'         => Backend::url('winter/blog/posts'),
+                        'url'         => Backend::url('torus/blog/posts'),
                         'permissions' => ['winter.blog.access_posts']
                     ],
                     'categories' => [
                         'label'       => 'winter.blog::lang.blog.categories',
                         'icon'        => 'icon-list-ul',
-                        'url'         => Backend::url('winter/blog/categories'),
+                        'url'         => Backend::url('torus/blog/categories'),
                         'permissions' => ['winter.blog.access_categories']
                     ]
                 ]
@@ -105,7 +105,7 @@ class Plugin extends PluginBase
                 'description' => 'winter.blog::lang.blog.settings_description',
                 'category' => 'winter.blog::lang.blog.menu_label',
                 'icon' => 'icon-pencil',
-                'class' => 'Winter\Blog\Models\Settings',
+                'class' => 'Torus\Blog\Models\Settings',
                 'order' => 500,
                 'keywords' => 'blog post category',
                 'permissions' => ['winter.blog.manage_settings']

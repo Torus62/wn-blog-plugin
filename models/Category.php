@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Models;
+<?php namespace Torus\Blog\Models;
 
 use Str;
 use Model;
@@ -11,7 +11,7 @@ class Category extends Model
     use \Winter\Storm\Database\Traits\Validation;
     use \Winter\Storm\Database\Traits\NestedTree;
 
-    public $table = 'winter_blog_categories';
+    public $table = 'torus_blog_categories';
     public $implement = ['@Winter.Translate.Behaviors.TranslatableModel'];
 
     /*
@@ -35,13 +35,13 @@ class Category extends Model
     protected $guarded = [];
 
     public $belongsToMany = [
-        'posts' => ['Winter\Blog\Models\Post',
-            'table' => 'winter_blog_posts_categories',
+        'posts' => ['Torus\Blog\Models\Post',
+            'table' => 'torus_blog_posts_categories',
             'order' => 'published_at desc',
             'scope' => 'isPublished'
         ],
-        'posts_count' => ['Winter\Blog\Models\Post',
-            'table' => 'winter_blog_posts_categories',
+        'posts_count' => ['Torus\Blog\Models\Post',
+            'table' => 'torus_blog_posts_categories',
             'scope' => 'isPublished',
             'count' => true
         ]

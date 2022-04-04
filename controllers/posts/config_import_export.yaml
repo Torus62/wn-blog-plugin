@@ -7,16 +7,16 @@ import:
     title: winter.blog::lang.posts.import_post
 
     # Import List Column configuration
-    list: $/winter/blog/models/postimport/columns.yaml
+    list: $/torus/blog/models/postimport/columns.yaml
 
     # Import Form Field configuration
-    form: $/winter/blog/models/postimport/fields.yaml
+    form: $/torus/blog/models/postimport/fields.yaml
 
     # Import Model class
-    modelClass: Winter\Blog\Models\PostImport
+    modelClass: Torus\Blog\Models\PostImport
 
     # Redirect when finished
-    redirect: winter/blog/posts
+    redirect: torus/blog/posts
 
     # Required permissions
     permissions: winter.blog.access_import_export
@@ -29,13 +29,13 @@ export:
     fileName: posts.csv
 
     # Export List Column configuration
-    list: $/winter/blog/models/postexport/columns.yaml
+    list: $/torus/blog/models/postexport/columns.yaml
 
     # Export Model class
-    modelClass: Winter\Blog\Models\PostExport
+    modelClass: Torus\Blog\Models\PostExport
 
     # Redirect when finished
-    redirect: winter/blog/posts
+    redirect: torus/blog/posts
 
     # Required permissions
     permissions: winter.blog.access_import_export

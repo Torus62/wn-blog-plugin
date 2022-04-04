@@ -3,14 +3,14 @@
 # ===================================
 
 name: winter.blog::lang.blog.create_post
-form: ~/plugins/winter/blog/models/post/fields.yaml
-modelClass: Winter\Blog\Models\Post
-defaultRedirect: winter/blog/posts
+form: ~/plugins/torus/blog/models/post/fields.yaml
+modelClass: Torus\Blog\Models\Post
+defaultRedirect: torus/blog/posts
 
 create:
-    redirect: winter/blog/posts/update/:id
-    redirectClose: winter/blog/posts
+    redirect: torus/blog/posts/update/:id
+    redirectClose: torus/blog/posts
 
 update:
-    redirect: winter/blog/posts
-    redirectClose: winter/blog/posts
+    redirect: torus/blog/posts
+    redirectClose: torus/blog/posts

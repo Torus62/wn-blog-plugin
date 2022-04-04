@@ -1,10 +1,10 @@
-<?php namespace Winter\Blog\Controllers;
+<?php namespace Torus\Blog\Controllers;
 
 use BackendMenu;
 use Flash;
 use Lang;
 use Backend\Classes\Controller;
-use Winter\Blog\Models\Category;
+use Torus\Blog\Models\Category;
 
 class Categories extends Controller
 {
@@ -24,7 +24,7 @@ class Categories extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Winter.Blog', 'blog', 'categories');
+        BackendMenu::setContext('Torus.Blog', 'blog', 'categories');
     }
 
     public function index_onDelete()

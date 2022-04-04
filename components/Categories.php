@@ -1,10 +1,10 @@
-<?php namespace Winter\Blog\Components;
+<?php namespace Torus\Blog\Components;
 
 use Db;
 use Carbon\Carbon;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-use Winter\Blog\Models\Category as BlogCategory;
+use Torus\Blog\Models\Category as BlogCategory;
 
 class Categories extends ComponentBase
 {
@@ -50,7 +50,7 @@ class Categories extends ComponentBase
                 'title'       => 'winter.blog::lang.settings.category_page',
                 'description' => 'winter.blog::lang.settings.category_page_description',
                 'type'        => 'dropdown',
-                'default'     => 'blog/category',
+                'default'     => 'news/category',
                 'group'       => 'winter.blog::lang.settings.group_links',
             ],
         ];

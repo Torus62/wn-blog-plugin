@@ -1,15 +1,15 @@
-<?php namespace Winter\Blog\Components;
+<?php namespace Torus\Blog\Components;
 
 use Event;
 use BackendAuth;
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-use Winter\Blog\Models\Post as BlogPost;
+use Torus\Blog\Models\Post as BlogPost;
 
 class Post extends ComponentBase
 {
     /**
-     * @var Winter\Blog\Models\Post The post model used for display.
+     * @var Torus\Blog\Models\Post The post model used for display.
      */
     public $post;
 
@@ -99,7 +99,7 @@ class Post extends ComponentBase
         if (!$this->checkEditor()) {
             $query->isPublished();
         }
-        
+
         $post = $query->first();
 
         /*

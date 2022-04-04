@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: ~/plugins/winter/blog/models/category/columns.yaml
+list: ~/plugins/torus/blog/models/category/columns.yaml
 
 # Model Class name
-modelClass: Winter\Blog\Models\Category
+modelClass: Torus\Blog\Models\Category
 
 # List Title
 title: winter.blog::lang.categories.list_title
 
 # Link URL for each record
-recordUrl: winter/blog/categories/update/:id
+recordUrl: torus/blog/categories/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

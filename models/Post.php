@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Models;
+<?php namespace Torus\Blog\Models;
 
 use Url;
 use Html;
@@ -12,7 +12,7 @@ use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
 use Cms\Classes\Controller;
 use Winter\Storm\Database\NestedTreeScope;
-use Winter\Blog\Classes\TagProcessor;
+use Torus\Blog\Classes\TagProcessor;
 use ValidationException;
 
 /**
@@ -22,7 +22,7 @@ class Post extends Model
 {
     use \Winter\Storm\Database\Traits\Validation;
 
-    public $table = 'winter_blog_posts';
+    public $table = 'torus_blog_posts';
     public $implement = ['@Winter.Translate.Behaviors.TranslatableModel'];
 
     /*
@@ -50,7 +50,7 @@ class Post extends Model
     /**
      * @var array Attributes to be stored as JSON
      */
-    protected $jsonable = ['metadata'];
+    protected $jsonable = ['metadata','regions'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -83,8 +83,8 @@ class Post extends Model
 
     public $belongsToMany = [
         'categories' => [
-            'Winter\Blog\Models\Category',
-            'table' => 'winter_blog_posts_categories',
+            'Torus\Blog\Models\Category',
+            'table' => 'torus_blog_posts_categories',
             'order' => 'name'
         ]
     ];
@@ -236,6 +236,8 @@ class Post extends Model
             'perPage'          => 30,
             'sort'             => 'created_at',
             'categories'       => null,
+            'brand'            => null,
+            'regions'          => null,
             'exceptCategories' => null,
             'category'         => null,
             'search'           => '',
@@ -308,6 +310,21 @@ class Post extends Model
             $query->whereHas('categories', function($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
+        }
+
+        /*
+         * Brand
+         */
+        if ($brand) {
+            $query->where('brand', '=', $brand);
+        }
+
+        /*
+         * Regions
+         */
+        if ($regions !== null) {
+            $regions = is_array($regions) ? $regions : [$regions];
+            $query->whereJsonContains('regions', $regions);
         }
 
         /*

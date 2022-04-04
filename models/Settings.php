@@ -1,4 +1,4 @@
-<?php namespace Winter\Blog\Models;
+<?php namespace Torus\Blog\Models;
 
 use Winter\Storm\Database\Model;
 
@@ -8,7 +8,7 @@ class Settings extends Model
 
     public $implement = ['System.Behaviors.SettingsModel'];
 
-    public $settingsCode = 'winter_blog_settings';
+    public $settingsCode = 'torus_blog_settings';
 
     public $settingsFields = 'fields.yaml';
 
