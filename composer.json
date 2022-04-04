@@ -1,5 +1,5 @@
 {
-    "name": "Torus62/wn-blog-plugin",
+    "name": "torus/wn-blog-plugin",
     "type": "winter-plugin",
     "description": "Blog plugin for Winter CMS",
     "homepage": "https://github.com/wintercms/wn-blog-plugin",
