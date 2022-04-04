@@ -15,10 +15,10 @@ class Plugin extends PluginBase
         return [
             'name'        => 'winter.blog::lang.plugin.name',
             'description' => 'winter.blog::lang.plugin.description',
-            'author'      => 'Winter CMS',
+            'author'      => 'Torus',
             'icon'        => 'icon-pencil',
-            'homepage'    => 'https://github.com/wintercms/wn-blog-plugin',
-            'replaces'    => ['RainLab.Blog' => '<= 1.5.0'],
+            'homepage'    => 'https://github.com/Torus62/wn-blog-plugin',
+            'replaces'    => ['RainLab.Blog' => '<= 1.5.0', 'Winter.Blog' => '>= 1.5.0 <= 2.0.2'],
         ];
     }
 

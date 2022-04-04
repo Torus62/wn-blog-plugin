@@ -1,5 +1,5 @@
 {
-    "name": "winter/wn-blog-plugin",
+    "name": "Torus62/wn-blog-plugin",
     "type": "winter-plugin",
     "description": "Blog plugin for Winter CMS",
     "homepage": "https://github.com/wintercms/wn-blog-plugin",
@@ -20,12 +20,17 @@
             "name": "Winter CMS Maintainers",
             "homepage": "https://wintercms.com",
             "role": "Maintainer"
+        },
+        {
+            "name": "Torus Website Maintainers",
+            "homepage": "https://torus.co.uk",
+            "role": "Maintainer"
         }
     ],
     "support": {
-        "issues": "https://github.com/wintercms/wn-blog-plugin/issues",
+        "issues": "https://github.com/Torus62/wn-blog-plugin/issues",
         "discord": "https://discord.gg/D5MFSPH6Ux",
-        "source": "https://github.com/wintercms/wn-blog-plugin"
+        "source": "https://github.com/Torus62/wn-blog-plugin"
     },
     "require": {
         "php": ">=7.0",
