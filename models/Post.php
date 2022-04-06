@@ -1,5 +1,6 @@
 <?php namespace Torus\Blog\Models;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Url;
 use Html;
 use Lang;
@@ -349,6 +350,18 @@ class Post extends Model
             $query->whereHas('categories', function($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
+        }
+
+        if ($limit !== null) {
+            $query->take($limit);
+            $posts = $query->get();
+            // fudge a paginator to show max number of results
+            return new LengthAwarePaginator(
+                $posts,
+                $posts->count() < $limit ? $posts->count() : $limit,
+                $limit,
+                1
+            );
         }
 
         return $query->paginate($perPage, $page);

@@ -149,6 +149,14 @@ class Posts extends ComponentBase
                 'default'           => '',
                 'group'             => 'winter.blog::lang.settings.group_exceptions',
             ],
+            'limit' => [
+                'title'             => 'Post limit',
+                'description'       => 'The total number of posts to return',
+                'type'              => 'string',
+                'validationPattern' => '^[0-9]+$',
+                'validationMessage' => 'Must be a whole number',
+                'default'           => ''
+            ]
         ];
     }
 
@@ -223,6 +231,7 @@ class Posts extends ComponentBase
             'category'         => $category,
             'brand'            => $this->property('brandFilter'),
             'regions'          => $regions,
+            'limit'            => $this->property('limit'),
             'published'        => $isPublished,
             'exceptPost'       => is_array($this->property('exceptPost'))
                 ? $this->property('exceptPost')
