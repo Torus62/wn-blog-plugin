@@ -15,6 +15,7 @@ use Cms\Classes\Controller;
 use Winter\Storm\Database\NestedTreeScope;
 use Torus\Blog\Classes\TagProcessor;
 use ValidationException;
+use function PHPUnit\Framework\isEmpty;
 
 /**
  * Class Post
@@ -352,7 +353,7 @@ class Post extends Model
             });
         }
 
-        if ($limit !== null) {
+        if (!isEmpty($limit)) {
             $query->take($limit);
             $posts = $query->get();
             // fudge a paginator to show max number of results
