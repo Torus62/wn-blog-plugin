@@ -353,7 +353,7 @@ class Post extends Model
             });
         }
 
-        if (!isEmpty($limit)) {
+        if (isset($limit)) {
             $query->take($limit);
             $posts = $query->get();
             // fudge a paginator to show max number of results
