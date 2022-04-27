@@ -1,5 +1,6 @@
 <?php namespace Torus\Blog\Models;
 
+use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Url;
 use Html;
@@ -121,8 +122,7 @@ class Post extends Model
         if (!$user->hasAnyAccess(['winter.blog.access_publish'])) {
             $fields->published->hidden = true;
             $fields->published_at->hidden = true;
-        }
-        else {
+        } else {
             $fields->published->hidden = false;
             $fields->published_at->hidden = false;
         }
@@ -202,9 +202,7 @@ class Post extends Model
             $result = str_replace('<pre>', '<pre class="prettyprint">', $result);
         }
 
-        $result = TagProcessor::instance()->processTags($result, $preview);
-
-        return $result;
+        return TagProcessor::instance()->processTags($result, $preview);
     }
 
     //
@@ -226,7 +224,7 @@ class Post extends Model
      *
      * @param        $query
      * @param  array $options Display options
-     * @return Post
+     * @return AbstractPaginator
      */
     public function scopeListFrontEnd($query, $options)
     {
@@ -242,6 +240,8 @@ class Post extends Model
             'regions'          => null,
             'exceptCategories' => null,
             'category'         => null,
+            'month'            => null,
+            'year'             => null,
             'search'           => '',
             'published'        => true,
             'exceptPost'       => null
@@ -251,6 +251,14 @@ class Post extends Model
 
         if ($published) {
             $query->isPublished();
+        }
+
+        if ($month) {
+            $query->whereMonth('published_at', $month);
+        }
+
+        if ($year) {
+            $query->whereYear('published_at', $year);
         }
 
         /*
@@ -309,7 +317,7 @@ class Post extends Model
          */
         if ($categories !== null) {
             $categories = is_array($categories) ? $categories : [$categories];
-            $query->whereHas('categories', function($q) use ($categories) {
+            $query->whereHas('categories', function ($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
         }
@@ -348,7 +356,7 @@ class Post extends Model
             $category = Category::find($category);
 
             $categories = $category->getAllChildrenAndSelf()->lists('id');
-            $query->whereHas('categories', function($q) use ($categories) {
+            $query->whereHas('categories', function ($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
         }
@@ -376,7 +384,7 @@ class Post extends Model
      */
     public function scopeFilterCategories($query, $categories)
     {
-        return $query->whereHas('categories', function($q) use ($categories) {
+        return $query->whereHas('categories', function ($q) use ($categories) {
             $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
         });
     }
@@ -395,7 +403,7 @@ class Post extends Model
 
         return (
             !!strlen(trim($this->excerpt)) ||
-            strpos($this->content_html, $more) !== false ||
+            str_contains($this->content_html, $more) ||
             strlen(Html::strip($this->content_html)) > 600
         );
     }
@@ -415,7 +423,7 @@ class Post extends Model
         }
 
         $more = '<!-- more -->';
-        if (strpos($this->content_html, $more) !== false) {
+        if (str_contains($this->content_html, $more)) {
             $parts = explode($more, $this->content_html);
 
             return array_get($parts, 0);
@@ -442,7 +450,7 @@ class Post extends Model
      *
      * @param       $query
      * @param array $options
-     * @return
+     * @return mixed
      */
     public function scopeApplySibling($query, $options = [])
     {
@@ -502,8 +510,8 @@ class Post extends Model
      *   false if omitted.
      * - dynamicItems - Boolean value indicating whether the item type could generate new menu items.
      *   Optional, false if omitted.
-     * - cmsPages - a list of CMS pages (objects of the Cms\Classes\Page class), if the item type requires a CMS page reference to
-     *   resolve the item URL.
+     * - cmsPages - a list of CMS pages (objects of the Cms\Classes\Page class), if the item type requires a CMS
+     *   page reference to resolve the item URL.
      *
      * @param string $type Specifies the menu item type
      * @return array Returns an array
@@ -592,7 +600,7 @@ class Post extends Model
      * @param \Cms\Classes\Theme $theme Specifies the current theme.
      * @param string $url Specifies the current page URL, normalized, in lower case
      * The URL is specified relative to the website root, it includes the subdirectory name, if any.
-     * @return mixed Returns an array. Returns null if the item cannot be resolved.
+     * @return array|array[]|void Returns an array. Returns null if the item cannot be resolved.
      */
     public static function resolveMenuItem($item, $url, $theme)
     {
@@ -619,8 +627,7 @@ class Post extends Model
             $result['url'] = $pageUrl;
             $result['isActive'] = $pageUrl == $url;
             $result['mtime'] = $category->updated_at;
-        }
-        elseif ($item->type == 'all-blog-posts') {
+        } elseif ($item->type == 'all-blog-posts') {
             $result = [
                 'items' => []
             ];
@@ -640,8 +647,7 @@ class Post extends Model
 
                 $result['items'][] = $postItem;
             }
-        }
-        elseif ($item->type == 'category-blog-posts') {
+        } elseif ($item->type == 'category-blog-posts') {
             if (!$item->reference || !$item->cmsPage) {
                 return;
             }
@@ -659,7 +665,7 @@ class Post extends Model
             ->orderBy('title');
 
             $categories = $category->getAllChildrenAndSelf()->lists('id');
-            $query->whereHas('categories', function($q) use ($categories) {
+            $query->whereHas('categories', function ($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
 
@@ -687,6 +693,7 @@ class Post extends Model
      * @param $pageCode
      * @param $category
      * @param $theme
+     * @return string|void|null
      */
     protected static function getPostPageUrl($pageCode, $category, $theme)
     {
@@ -704,7 +711,7 @@ class Post extends Model
          * Extract the routing parameter name from the category filter
          * eg: {{ :someRouteParam }}
          */
-        if (!preg_match('/^\{\{([^\}]+)\}\}$/', $properties['slug'], $matches)) {
+        if (!preg_match('/^\{\{([^}]+)}}$/', $properties['slug'], $matches)) {
             return;
         }
 
@@ -715,8 +722,6 @@ class Post extends Model
             'month' => $category->published_at->format('m'),
             'day'   => $category->published_at->format('d')
         ];
-        $url = CmsPage::url($page->getBaseFileName(), $params);
-
-        return $url;
+        return CmsPage::url($page->getBaseFileName(), $params);
     }
 }

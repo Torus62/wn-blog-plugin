@@ -1,5 +1,6 @@
 <?php namespace Torus\Blog\Components;
 
+use Illuminate\Pagination\AbstractPaginator;
 use Lang;
 use Redirect;
 use BackendAuth;
@@ -16,52 +17,55 @@ class Posts extends ComponentBase
     /**
      * A collection of posts to display
      *
-     * @var Collection
+     * @var Collection|AbstractPaginator|null
      */
-    public $posts;
+    public Collection|AbstractPaginator|null $posts;
 
     /**
      * Parameter to use for the page number
      *
-     * @var string
+     * @var string|null
      */
-    public $pageParam;
+    public ?string $pageParam;
 
     /**
      * If the post list should be filtered by a category, the model to use
      *
-     * @var Model
+     * @var Model|null
      */
-    public $category;
+    public ?Model $category;
 
     /**
      * Message to display when there are no messages
      *
-     * @var string
+     * @var string|null
      */
-    public $noPostsMessage;
+    public ?string $noPostsMessage;
 
     /**
      * Reference to the page name for linking to posts
      *
-     * @var string
+     * @var string|null
      */
-    public $postPage;
+    public ?string $postPage;
 
     /**
      * Reference to the page name for linking to categories
      *
-     * @var string
+     * @var string|null
      */
-    public $categoryPage;
+    public ?string $categoryPage;
 
     /**
      * If the post list should be ordered by another attribute
      *
-     * @var string
+     * @var string|null
      */
-    public $sortOrder;
+    public ?string $sortOrder;
 
+    /**
+     * @return string[]
+     */
     public function componentDetails()
     {
         return [
@@ -70,6 +74,9 @@ class Posts extends ComponentBase
         ];
     }
 
+    /**
+     * @return array
+     */
     public function defineProperties()
     {
         return [
@@ -156,6 +163,22 @@ class Posts extends ComponentBase
                 'validationPattern' => '^[0-9]+$',
                 'validationMessage' => 'Must be a whole number',
                 'default'           => ''
+            ],
+            'month' => [
+                'title'             => 'Post month',
+                'description'       => 'The month to return posts for',
+                'type'              => 'string',
+                'validationPattern' => '^[1-12]+$',
+                'validationMessage' => 'Must be a whole number from 1 to 12',
+                'default'           => ''
+            ],
+            'year' => [
+                'title'             => 'Post year',
+                'description'       => 'The year to return posts for',
+                'type'              => 'string',
+                'validationPattern' => '^[2010-2100]+$',
+                'validationMessage' => 'Must be a whole number between 2010 and 2100',
+                'default'           => ''
             ]
         ];
     }
@@ -232,6 +255,8 @@ class Posts extends ComponentBase
             'brand'            => $this->property('brandFilter'),
             'regions'          => $regions,
             'limit'            => $this->property('limit'),
+            'month'             => $this->property('month'),
+            'year'             => $this->property('year'),
             'published'        => $isPublished,
             'exceptPost'       => is_array($this->property('exceptPost'))
                 ? $this->property('exceptPost')
@@ -244,10 +269,10 @@ class Posts extends ComponentBase
         /*
          * Add a "url" helper attribute for linking to each post and category
          */
-        $posts->each(function($post) use ($categorySlug) {
+        $posts->each(function ($post) use ($categorySlug) {
             $post->setUrl($this->postPage, $this->controller, ['category' => $categorySlug]);
 
-            $post->categories->each(function($category) {
+            $post->categories->each(function ($category) {
                 $category->setUrl($this->categoryPage, $this->controller);
             });
         });
@@ -276,6 +301,8 @@ class Posts extends ComponentBase
     {
         $backendUser = BackendAuth::getUser();
 
-        return $backendUser && $backendUser->hasAccess('winter.blog.access_posts') && BlogSettings::get('show_all_posts', true);
+        return $backendUser
+            && $backendUser->hasAccess('winter.blog.access_posts')
+            && BlogSettings::get('show_all_posts', true);
     }
 }
