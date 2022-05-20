@@ -15,6 +15,10 @@ columns:
         searchable: true
         sortable: false
 
+    brand:
+        label: Brand
+        type: text
+
     created_at:
         label: winter.blog::lang.post.created
         type: date

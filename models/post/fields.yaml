@@ -3,7 +3,6 @@
 # ===================================
 
 fields:
-
     title:
         label: winter.blog::lang.post.title
         span: left
@@ -91,6 +90,12 @@ secondaryTabs:
             label: winter.blog::lang.post.excerpt
             type: textarea
             size: small
+
+        show_featured_image:
+            tab: winter.blog::lang.post.tab_manage
+            label: Show featured image on article pages
+            type: checkbox
+            default: true
 
         featured_images:
             tab: winter.blog::lang.post.tab_manage

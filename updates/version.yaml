@@ -75,4 +75,6 @@
 "2.0.6":
     - Add extended brand and region fields
     - v2.0.6/posts_add_regions_brand.php
-
+"2.0.7":
+    - Add show featured image field
+    - v2.0.7/posts_show_featured_image.php
