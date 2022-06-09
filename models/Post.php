@@ -321,11 +321,6 @@ class Post extends Model
                 $q->withoutGlobalScope(NestedTreeScope::class)
                     ->whereIn('id', $categories);
             });
-        } else {
-            $query->whereHas('categories', function ($q) {
-                $q->withoutGlobalScope(NestedTreeScope::class)
-                    ->where('hide_from_listings', '=', 0);
-            });
         }
 
         /*
@@ -364,6 +359,11 @@ class Post extends Model
             $categories = $category->getAllChildrenAndSelf()->lists('id');
             $query->whereHas('categories', function ($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
+            });
+        } else {
+            $query->whereHas('categories', function ($q) {
+                $q->withoutGlobalScope(NestedTreeScope::class)
+                    ->where('hide_from_listings', '=', 0);
             });
         }
 
