@@ -361,9 +361,9 @@ class Post extends Model
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
         } else {
-            $query->whereHas('categories', function ($q) {
+            $query->whereDoesntHave('categories', function ($q) {
                 $q->withoutGlobalScope(NestedTreeScope::class)
-                    ->where('hide_from_listings', '=', 0);
+                    ->where('hide_from_listings', '=', 1);
             });
         }
 
