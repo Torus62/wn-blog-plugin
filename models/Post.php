@@ -319,8 +319,7 @@ class Post extends Model
             $categories = is_array($categories) ? $categories : [$categories];
             $query->whereHas('categories', function ($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)
-                    ->whereIn('id', $categories)
-                    ->where('hide_from_listings', '=', 0);
+                    ->whereIn('id', $categories);
             });
         } else {
             $query->whereHas('categories', function ($q) {
