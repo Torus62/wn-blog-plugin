@@ -78,3 +78,6 @@
 "2.0.7":
     - Add show featured image field
     - v2.0.7/posts_show_featured_image.php
+"2.0.8":
+    - Add categories exclusion field
+    - v2.0.8/categories_add_exclude_field.php

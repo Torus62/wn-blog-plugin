@@ -20,3 +20,8 @@ fields:
         size: large
         span: full
         type: textarea
+
+    hide_from_listings:
+        label: 'winter.blog::lang.category.hidden'
+        span: left
+        type: checkbox

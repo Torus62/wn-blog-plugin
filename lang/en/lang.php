@@ -87,7 +87,8 @@ return [
         'delete_confirm' => 'Delete this category?',
         'delete_success' => 'Successfully deleted those categories.',
         'return_to_categories' => 'Return to the news category list',
-        'reorder' => 'Reorder Categories'
+        'reorder' => 'Reorder Categories',
+        'hidden' => 'Hide from all listings'
     ],
     'menuitem' => [
         'blog_category' => 'News category',
