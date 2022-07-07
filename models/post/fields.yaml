@@ -49,6 +49,12 @@ secondaryTabs:
                 foundation: 'Torus Foundation'
                 developments: 'Torus Development'
 
+        brand_specific:
+            tab: winter.blog::lang.post.tab_categories
+            label: Show on brand news pages only
+            type: checkbox
+            default: true
+
         regions:
             tab: winter.blog::lang.post.tab_categories
             label: Regions

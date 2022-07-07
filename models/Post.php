@@ -328,6 +328,8 @@ class Post extends Model
          */
         if ($brand) {
             $query->where('brand', '=', $brand);
+        } else {
+            $query->where('brand_specific', '=', 0);
         }
 
         /*

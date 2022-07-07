@@ -81,3 +81,6 @@
 "2.0.8":
     - Add categories exclusion field
     - v2.0.8/categories_add_exclude_field.php
+"2.0.9":
+    - Add post show on brand-only field
+    - v2.0.9/posts_add_brand_only_field.php
