@@ -236,8 +236,6 @@ class Post extends Model
             'perPage'          => 30,
             'sort'             => 'created_at',
             'categories'       => null,
-            'brand'            => null,
-            'regions'          => null,
             'exceptCategories' => null,
             'category'         => null,
             'month'            => null,
@@ -315,41 +313,15 @@ class Post extends Model
         /*
          * Categories
          */
-        if ($categories !== null) {
-            $categories = is_array($categories) ? $categories : [$categories];
-            $query->whereHas('categories', function ($q) use ($categories) {
-                $q->withoutGlobalScope(NestedTreeScope::class)
-                    ->whereIn('id', $categories);
-            });
-        }
+        if (!empty($categories)) {
+            //$categoryIds = Category::whereIn('slug',$categories)->get()->lists('id');
 
-        /*
-         * Brand
-         */
-        if ($brand) {
-            $query->where('brand', '=', $brand);
-        } else {
-            $query->where('brand_specific', '=', 0);
-        }
-
-        /*
-         * Regions
-         */
-        if ($regions !== null) {
-            $regions = is_array($regions) ? $regions : [$regions];
-            $query->whereJsonContains('regions', $regions);
-        }
-
-        /*
-         * Except Categories
-         */
-        if (!empty($exceptCategories)) {
-            $exceptCategories = is_array($exceptCategories) ? $exceptCategories : [$exceptCategories];
-            array_walk($exceptCategories, 'trim');
-
-            $query->whereDoesntHave('categories', function ($q) use ($exceptCategories) {
-                $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('slug', $exceptCategories);
-            });
+            foreach ($categories as $categorySlug) {
+                $query->whereHas('categories', function ($q) use ($categorySlug) {
+                    $q->withoutGlobalScope(NestedTreeScope::class)
+                        ->where('slug', $categorySlug);
+                });
+            }
         }
 
         /*
@@ -362,10 +334,24 @@ class Post extends Model
             $query->whereHas('categories', function ($q) use ($categories) {
                 $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('id', $categories);
             });
-        } else {
+        }
+
+        if (empty($categories) && $category == null) {
             $query->whereDoesntHave('categories', function ($q) {
                 $q->withoutGlobalScope(NestedTreeScope::class)
                     ->where('hide_from_listings', '=', 1);
+            });
+        }
+
+        /*
+         * Except Categories
+         */
+        if (!empty($exceptCategories)) {
+            $exceptCategories = is_array($exceptCategories) ? $exceptCategories : [$exceptCategories];
+            array_walk($exceptCategories, 'trim');
+
+            $query->whereDoesntHave('categories', function ($q) use ($exceptCategories) {
+                $q->withoutGlobalScope(NestedTreeScope::class)->whereIn('slug', $exceptCategories);
             });
         }
 

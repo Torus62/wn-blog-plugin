@@ -92,17 +92,11 @@ class Posts extends ComponentBase
                 'type'        => 'string',
                 'default'     => '',
             ],
-            'brandFilter' => [
-                'title'       => 'Brand filter',
-                'description' => 'Enter a brand to filter by brand or leave blank to fetch all',
-                'type'        => 'string',
-                'default'     => '',
-            ],
-            'regionsFilter' => [
-                'title'       => 'Regions filter',
-                'description' => 'Enter a regions list to filter by region or leave blank to fetch all',
-                'type'        => 'string',
-                'default'     => '',
+            'categoriesFilter' => [
+                'title'             => 'Filter on categories',
+                'description'       => 'A comma-seperated list of categories to show posts for',
+                'type'              => 'string',
+                'default'           => ''
             ],
             'postsPerPage' => [
                 'title'             => 'winter.blog::lang.settings.posts_per_page',
@@ -239,7 +233,6 @@ class Posts extends ComponentBase
     {
         $category = $this->category ? $this->category->id : null;
         $categorySlug = $this->category ? $this->category->slug : null;
-        $regions = $this->property('regionsFilter') ? explode(',', $this->property('regionsFilter')) : null;
 
         /*
          * List all the posts, eager load their categories
@@ -252,8 +245,9 @@ class Posts extends ComponentBase
             'perPage'          => $this->property('postsPerPage'),
             'search'           => trim(input('search')),
             'category'         => $category,
-            'brand'            => $this->property('brandFilter'),
-            'regions'          => $regions,
+            'categories'       => is_array($this->property('categoriesFilter'))
+                ? $this->property('categoriesFilter')
+                : preg_split('/,\s*/', $this->property('categoriesFilter'), -1, PREG_SPLIT_NO_EMPTY),
             'limit'            => $this->property('limit'),
             'month'             => $this->property('month'),
             'year'             => $this->property('year'),

@@ -37,34 +37,6 @@ secondaryTabs:
             commentAbove: winter.blog::lang.post.categories_comment
             placeholder: winter.blog::lang.post.categories_placeholder
 
-        brand:
-            label: Brand
-            tab: winter.blog::lang.post.tab_categories
-            type: dropdown
-            options:
-                group: 'Torus Group'
-                landlord: 'Torus Landlord'
-                hms: 'HMS'
-                homes: 'Torus Homes'
-                foundation: 'Torus Foundation'
-                developments: 'Torus Development'
-
-        brand_specific:
-            tab: winter.blog::lang.post.tab_categories
-            label: Show on brand news pages only
-            type: checkbox
-            default: true
-
-        regions:
-            tab: winter.blog::lang.post.tab_categories
-            label: Regions
-            type: checkboxlist
-            quickselect: true
-            options:
-                sthelens: 'St Helens'
-                liverpool: 'Liverpool'
-                warrington: 'Warrington'
-
         published:
             tab: winter.blog::lang.post.tab_manage
             label: winter.blog::lang.post.published
